@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import path from 'path';
 import fs from 'fs';
 import { processImageIfNeeded } from '../utilities/imageProcessor';
@@ -8,7 +8,10 @@ const router = express.Router();
 const fullDir = path.resolve(__dirname, '..', '..', 'assets', 'full');
 const thumbDir = path.resolve(__dirname, '..', '..', 'assets', 'thumb');
 
-router.get('/', async (req, res) => {
+router.get('/', async (req: Request, res: Response) => {
+router.get('/ping', (req: Request, res: Response) => {
+  res.json({ message: 'pong' });
+});
   const filename = String(req.query.filename || '');
   const width = parseInt(String(req.query.width || ''));
   const height = parseInt(String(req.query.height || ''));
